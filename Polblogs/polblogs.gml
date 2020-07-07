@@ -1,6 +1,7 @@
 Creator "Lada Adamic on Tue Aug 15 2006"
 graph [
   directed 1
+  multigraph 1
   node [
     id 1
     label "100monkeystyping.com"
@@ -59968,10 +59969,6 @@ graph [
   edge [
     source 747
     target 563
-  ]
-  edge [
-    source 1047
-    target 1179
   ]
   edge [
     source 1047
