@@ -349,3 +349,96 @@ def calcMaxState(G_data, B_data, name, encoder):
             print("Index:{}\tMax NMI till now:{}".format(index,max_value))
     
     return index
+
+def show_clustering(G_data, B_data, name, encoder, r_state):
+    
+    # if(name=='lfr 0.1'):
+
+    #     B_data_X = encoder.detach().numpy()
+    #     kmeans = KMeans(init='k-means++',n_clusters=4,random_state=r_state)
+    #     kmeans.fit(B_data_X)
+    #     X_ae = kmeans.labels_
+    #     labels_dict={0:[],1:[],2:[],3:[]}
+
+    #     for index,item in enumerate(X_ae):
+    #         labels_dict[item].append(index+1)
+
+    #     G=G_data
+    #     pos=nx.spring_layout(G)
+    #     # print(pos)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[0],node_color='r',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[1],node_color='g',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[2],node_color='b',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[3],node_color='y',node_size=75)
+
+    #     plt.title('lfr 0.1')
+    #     plt.show()
+
+    # elif(name=='lfr 0.3'):
+
+    #     B_data_X = encoder.detach().numpy()
+    #     kmeans = KMeans(init='k-means++',n_clusters=4,random_state=r_state)
+    #     kmeans.fit(B_data_X)
+    #     X_ae = kmeans.labels_
+    #     labels_dict={0:[],1:[],2:[],3:[]}
+
+    #     for index,item in enumerate(X_ae):
+    #         labels_dict[item].append(index+1)
+
+    #     G=G_data
+    #     pos=nx.spring_layout(G)
+    #     # print(pos)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[0],node_color='r',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[1],node_color='g',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[2],node_color='b',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[3],node_color='y',node_size=75)
+
+    #     plt.title('lfr 0.3')
+    #     plt.show()
+    
+    # elif(name=='lfr 0.5'):
+
+    #     B_data_X = encoder.detach().numpy()
+    #     kmeans = KMeans(init='k-means++',n_clusters=4,random_state=r_state)
+    #     kmeans.fit(B_data_X)
+    #     X_ae = kmeans.labels_
+    #     labels_dict={0:[],1:[],2:[],3:[]}
+
+    #     for index,item in enumerate(X_ae):
+    #         labels_dict[item].append(index+1)
+
+    #     G=G_data
+    #     pos=nx.spring_layout(G)
+    #     # print(pos)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[0],node_color='r',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[1],node_color='g',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[2],node_color='b',node_size=75)
+    #     nx.draw_networkx_nodes(G,pos,nodelist=labels_dict[3],node_color='y',node_size=75)
+
+    #     plt.title('lfr 0.5')
+    #     plt.show()
+    
+    # else:
+    G=G_data
+    B_data_X = encoder.detach().numpy()
+
+    kmeans = KMeans(init='k-means++',n_clusters=get_clusters(G_data,name),random_state=r_state)
+    kmeans.fit(B_data_X)
+    X_ae = kmeans.labels_
+
+    labels_dict={}
+    for index,item in enumerate(X_ae):
+        labels_dict[item]=[]
+
+    for index,item in enumerate(X_ae):
+        labels_dict[item].append(list(G.nodes)[index])
+
+    G=G_data
+    pos=nx.spring_layout(G)
+    plt.figure(figsize=(20,10))
+    colors=['#f20905','#ab7533','#de9c0d','#a5e841','#09ed7b','#0af0e0','#0f5ea8','#08046e','#9c2be3','#e607c4','#e607c4','#0a0105']
+    for key,col in enumerate(labels_dict):
+        nx.draw(G,pos,nodelist=labels_dict[key],node_color=colors[col],node_size=150,width=0.15)
+
+    plt.title(name)
+    plt.show()
