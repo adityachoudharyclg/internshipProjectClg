@@ -331,7 +331,7 @@ def compute_results(G_data, B_data, name, encoder,r_state=0,only_kmeans=False):
     # print(X_ae)
     # print(X_gt)
 
-    return metrics.fowlkes_mallows_score(X_gt, X_ae, average_method='arithmetic')
+    return metrics.fowlkes_mallows_score(X_gt, X_ae)
 
 
 # Calculating max state
@@ -364,7 +364,7 @@ def calcMaxState(G_data, B_data, name, encoder):
                 c_groups.append(val)  
 
         X_gt = np.array(c_groups)
-        fmi=metrics.fowlkes_mallows_score(X_gt, X_ae, average_method='arithmetic')
+        fmi=metrics.fowlkes_mallows_score(X_gt, X_ae)
 
         if(fmi>max_value):
             index=r_state
