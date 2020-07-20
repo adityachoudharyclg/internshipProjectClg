@@ -13,7 +13,7 @@ from sklearn import metrics
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 from Datasets.lfrData import *
-
+from networkx.algorithms.community import modularity_max,modularity
 # Basic autoencoder model
 
 
