@@ -465,7 +465,7 @@ def show_clustering(G_data, B_data, name, encoder, r_state):
     
     for key,col in enumerate(labels_dict):
         rgb = np.random.rand(3,)
-        nx.draw(G,pos,nodelist=labels_dict[key],node_color=[rgb],node_size=150,width=0.10,)
+        nx.draw(G,pos,nodelist=labels_dict[key],node_color=[rgb],node_size=300,width=0.09,)
 
     plt.title(name)
     plt.show()
